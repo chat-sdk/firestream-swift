@@ -23,16 +23,25 @@ let package = Package(
             dependencies: ["Protocols"]),
         .target(
             name: "Protocols",
-            dependencies: ["Message", "RxSwift"]),
+            dependencies: ["Message", "Chat", "RxSwift"]),
         .target(
             name: "Message",
             dependencies: ["Types", "Service", "RxSwift"]),
+        .target(
+            name: "Chat",
+            dependencies: ["Events", "RX", "RxSwift"]),
+        .target(
+            name: "Events",
+            dependencies: ["Message", "RxSwift"]),
         .target(
             name: "Types",
             dependencies: ["Service"]),
         .target(
             name: "Service",
             dependencies: []),
+        .target(
+            name: "RX",
+            dependencies: ["RxSwift"]),
         .testTarget(
             name: "FireStreamTests",
             dependencies: ["FireStream"]),

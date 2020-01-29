@@ -15,6 +15,10 @@ public class Sendable: BaseMessage {
 
     internal var id: String?
 
+    public required override init() {
+//        self.from = Fire.Stream.currentUserId();
+    }
+
     public init(id: String, data: [String: Any]) {
         super.init()
         self.id = id
@@ -55,7 +59,7 @@ public class Sendable: BaseMessage {
         throw "Body doesn't contain key: " + key
     }
 
-    public func copyTo(sendable: Sendable) {
+    public func copyTo(_ sendable: Sendable) {
         sendable.setId(self.id)
         sendable.setFrom(self.from)
         sendable.setBody(self.body)
@@ -75,9 +79,53 @@ public class Sendable: BaseMessage {
         var data = [String: Any]()
         data[Keys.From] = self.from
         data[Keys.Body] = self.body
+//        data[Keys.Date] = Fire.privateApi().getFirebaseService().core.timestamp()
         data[Keys.type] = self.type
         return data
     }
+
+//    public static class Converter<T extends Sendable> {
+//
+//        protected Class<T> clazz;
+//
+//        public Converter(Class<T> clazz) {
+//            this.clazz = clazz;
+//        }
+//
+//        public T convert(Sendable s) {
+//            try {
+//                T instance = clazz.newInstance();
+//                s.copyTo(instance);
+//                return instance;
+//            } catch (Exception e) {
+//                return null;
+//            }
+//        }
+//    }
+//
+//    public Message toMessage() {
+//        return new Converter<>(Message.class).convert(this);
+//    }
+//
+//    public TypingState toTypingState() {
+//        return new Converter<>(TypingState.class).convert(this);
+//    }
+//
+//    public DeliveryReceipt toDeliveryReceipt() {
+//        return new Converter<>(DeliveryReceipt.class).convert(this);
+//    }
+//
+//    public Invitation toInvitation() {
+//        return new Converter<>(Invitation.class).convert(this);
+//    }
+//
+//    public Presence toPresence() {
+//        return new Converter<>(Presence.class).convert(this);
+//    }
+//
+//    public TextMessage toTextMessage() {
+//        return new Converter<>(TextMessage.class).convert(this);
+//    }
 
     public func setId(_ id: String?) {
         self.id = id
@@ -89,6 +137,12 @@ public class Sendable: BaseMessage {
 
     public func equals(sendable: Sendable) -> Bool {
         return self.getId() == sendable.getId()
+    }
+
+    public static func fromSendable<T: Sendable>(_ sendable: Sendable) -> T {
+        let message = T.init()
+        sendable.copyTo(message)
+        return message
     }
 
 }

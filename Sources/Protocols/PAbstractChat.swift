@@ -10,9 +10,9 @@ import RxSwift
 
 import Message
 import Types
+import Chat
 
 public struct DisposableMap {}
-public struct Events {}
 
 public protocol PAbstractChat {
 

@@ -9,11 +9,11 @@ public class BaseType {
 
     internal var type = ""
 
-    public init(_ type: String) {
+    public required init(_ type: String) {
         self.type = ""
     }
 
-    public init(_ type: BaseType) {
+    public required init(_ type: BaseType) {
         self.type = type.get()
     }
 
@@ -25,8 +25,8 @@ public class BaseType {
         return self.get() == type.get()
     }
 
-    public static func none() -> BaseType {
-        return BaseType("")
+    public static func none<T: BaseType>() -> T {
+        return T.init("")
     }
 
 }

@@ -7,11 +7,11 @@
 
 public class SendableType: BaseType {
 
-    static let Message = "message"
-    static let DeliveryReceipt = "receipt"
-    static let TypingState = "typing"
-    static let Presence = "presence"
-    static let Invitation = "invitation"
+    public static let Message = "message"
+    public static let DeliveryReceipt = "receipt"
+    public static let TypingState = "typing"
+    public static let Presence = "presence"
+    public static let Invitation = "invitation"
 
     public static func message() -> SendableType {
         return SendableType(Message)
